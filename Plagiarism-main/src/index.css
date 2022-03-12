@@ -55,7 +55,7 @@ textarea {
 }
 
 footer {
-    padding: 0 2.88% 0;
+    padding: 0 2.8% 0;
     margin: 10em 0 5em;
 
     height: 7em;
@@ -73,7 +73,7 @@ footer {
 
 ul li {
     display: inline;
-    margin-right: 2em;
+    margin-right: 7%;
     margin-top: 1.679em;
     
 }
@@ -132,13 +132,21 @@ form .btn-img {
     font-size: 24px;
     line-height: 29px;
     font-family: 'Exo 2', sans-serif;
-
+    text-align: center;
     color: #5C5C5C;
+}
+
+.incubator {
+    width: 90%;
 }
 
 .logo {
     display: flex;
     align-items: center;
+}
+
+.icones {
+    width: 25%;
 }
 
 #particles-js {
@@ -188,6 +196,9 @@ form .btn-img {
 #result {
     padding: 1rem;
     width: 100%;
+    font-size: 28px;
+    font-weight: 700;
+    font-family: 'Exo 2', sans-serif;
     text-align: center;
     color: white;
     z-index: 9999;
@@ -231,7 +242,7 @@ form .btn-img {
     }
     footer {
         background-color: rgba(255, 255, 255, 0.8);
-        height: 13em;
+        height: 11em;
         margin: 5em auto;
         padding-top: 1em;
         padding-bottom: 0.5em;

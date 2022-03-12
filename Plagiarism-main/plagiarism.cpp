@@ -41,7 +41,7 @@ double antiPlagiarism(string text, string fragment) {
 
 	uniqueness = calculateUniqueness(originalTextLength, userTextLength);
 
-	return uniqueness;
+	return 100.0 - uniqueness;
 }
 
 bool isSeparator(char ch)
