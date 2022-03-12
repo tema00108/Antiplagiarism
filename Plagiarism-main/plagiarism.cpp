@@ -38,6 +38,10 @@ double antiPlagiarism(string text, string fragment) {
 	originalTextLength = processText(text, processedOriginalText);
 
 	userTextLength = processText(fragment, processedUserText);
+	if (userTextLength < SHINGLE_SIZE)
+	{
+		return 0.0;
+	}
 
 	uniqueness = calculateUniqueness(originalTextLength, userTextLength);
 
