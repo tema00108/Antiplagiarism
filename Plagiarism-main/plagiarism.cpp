@@ -8,7 +8,6 @@
 
 using namespace std;
 
-// Define constants here
 const int MAX_WORDS = 8192;
 const int MAX_LETTERS = 100;
 const int CONJUNCTIONS_SIZE = 18;
@@ -18,19 +17,33 @@ const int A_CAPITAL = 65;
 const int UPPERCASE_TO_LOWERCASE = 32;
 const int CHAR_0 = 48;
 const int CHAR_9 = 57;
+const double MAX_UNIQUENESS = 100.0;
 
 string processedOriginalText[MAX_WORDS];
 string processedUserText[MAX_WORDS];
 
-// Put function declaration here
 bool isSeparator(char);
-int processText(string text, string (&processedText)[MAX_WORDS]);
+int processText(string text, string(&processedText)[MAX_WORDS]);
 bool isConjunction(char[]);
 char toLower(char);
 int calculateUniqueness(int originalTextLength, int userTextLength);
 bool isShingleUnique(string[], int);
+double antiPlagiarism(string text, string fragment);
 
-// Put function definition here
+double antiPlagiarism(string text, string fragment) {
+	int originalTextLength = 0;
+	int userTextLength = 0;
+	double uniqueness = 0.0;
+
+	originalTextLength = processText(text, processedOriginalText);
+
+	userTextLength = processText(fragment, processedUserText);
+
+	uniqueness = calculateUniqueness(originalTextLength, userTextLength);
+
+	return uniqueness;
+}
+
 bool isSeparator(char ch)
 {
 	char separators[] = " ,.!?:;()-_=+@#$%^&*'\"\\/<>[]{}`~";
@@ -45,7 +58,7 @@ bool isSeparator(char ch)
 	return false;
 }
 
-int processText(string text, string (&processedText)[MAX_WORDS])
+int processText(string text, string(&processedText)[MAX_WORDS])
 {
 	char word[MAX_LETTERS]{};
 	int iw = 0;
@@ -61,15 +74,19 @@ int processText(string text, string (&processedText)[MAX_WORDS])
 			{
 				return counter;
 			}
+
 			iw++;
+
 			if (isSeparator(text[i + 1]) or text[i + 1] == '\0')
 			{
 				word[iw] = '\0';
 				iw = 0;
+
 				for (int j = 0; word[j] != '\0'; j++)
 				{
 					word[j] = toLower(word[j]);
 				}
+
 				if (!isConjunction(word) and (counter == 0 or word != processedText[counter - 1]))
 				{
 					processedText[counter] = word;
@@ -83,25 +100,25 @@ int processText(string text, string (&processedText)[MAX_WORDS])
 			}
 		}
 	}
-	
+
 	return counter;
 }
 
 int calculateUniqueness(int originalTextLength, int userTextLength)
 {
 	string shingle[SHINGLE_SIZE];
-	int shingleMaxNumb = 0;
+	int shingleMaxNumber = 0;
 	int uniqueShingles = 0;
 	int uniqueness = 0;
 
 	if (originalTextLength < SHINGLE_SIZE or userTextLength < SHINGLE_SIZE)
 	{
-		uniqueness = 100;
+		uniqueness = MAX_UNIQUENESS;
 		return uniqueness;
 	}
 
-	shingleMaxNumb = userTextLength - SHINGLE_SIZE + 1;
-	for (int shingleCount = 0; shingleCount < shingleMaxNumb; shingleCount++)
+	shingleMaxNumber = userTextLength - SHINGLE_SIZE + 1;
+	for (int shingleCount = 0; shingleCount < shingleMaxNumber; shingleCount++)
 	{
 		for (int i = 0; i < SHINGLE_SIZE; i++)
 		{
@@ -113,7 +130,8 @@ int calculateUniqueness(int originalTextLength, int userTextLength)
 			uniqueShingles++;
 		}
 	}
-	uniqueness = round(100.0 * uniqueShingles / shingleMaxNumb);
+
+	uniqueness = round(MAX_UNIQUENESS * uniqueShingles / shingleMaxNumber);
 
 	return uniqueness;
 }
@@ -165,5 +183,7 @@ char toLower(char ch)
 	{
 		ch += UPPERCASE_TO_LOWERCASE;
 	}
+
 	return ch;
 }
+
