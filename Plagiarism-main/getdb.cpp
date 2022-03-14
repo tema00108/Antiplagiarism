@@ -10,7 +10,7 @@ const char server[] = "textaidatabase.czslbf2tz8i3.us-east-1.rds.amazonaws.com";
 const char user[] = "admin";
 const char password[] = "Vlad_i_Tema_1337";
 const char database[] = "TextAIDatabase";
-const char sqlQuery[] = "SELECT Id, Content	FROM EDocs WHERE Type IN (2, 3);";
+const char sqlQuery[] = "SELECT EDoc_Id, content FROM EDocs WHERE Type IN (2, 3);";
 
 string getDb()
 {
