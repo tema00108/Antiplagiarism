@@ -204,10 +204,6 @@ form .btn-img {
     z-index: 9999;
 }
 
-.btn-disabled {
-    color: #F86A9B;
-}
-
 @media (max-width: 760px) {
     .background {
         background: linear-gradient(90deg, #FDC402 0%, #DE72D7 100%);
